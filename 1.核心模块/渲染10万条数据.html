@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://cdn.bootcdn.net/ajax/libs/axios/0.26.1/axios.min.js"></script>
+</head>
+<body>
+  <div id="container"></div>
+  <script>
+    const renderList = async () => {
+      console.time('列表时间')
+      const { data: list } = await axios.get('http://127.0.0.1:2000/list')
+      const total = list.length // 总条数
+      const page = 1 // 当前第一页
+      const limit = 10 // 每页显示200条
+      const totalPage = Math.ceil(total / limit)// 计算得到总页码数
+
+      const render = (page) => {
+        if (page > totalPage) return // 表示超出最大页码数或者理解成最后一页
+        setTimeout(() => {
+          for (let i = (page - 1) * limit; i < page * limit; i++) {
+            const item = list[i]// 获取200条中的每一项
+            if (!item) return  // 处理(total / limit)除不尽的情况
+            const div = document.createElement('div')// 动态创建一个div元素
+            div.innerHTML = `<img src="${item.src}" /><span>阿牛哥：${item.text}</span>` // 给每一项添加属性
+            container.appendChild(div)
+          }
+          render(page + 1)
+        }, 0)
+      }
+      render(page)
+      console.timeEnd('列表时间')
+    }
+    renderList()
+  </script>
+</body>
+</html>

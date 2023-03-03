@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ejs模板引擎</title>
+  <style>
+    table {
+      border-collapse: collapse;
+    }
+    th, td {
+      border: 1px solid #000;
+      padding: 10px 20px;
+    }
+  </style>
+</head>
+<body>
+  <% for (const stu of stus) { %>
+      <%= stu.id %> - <%= stu.name %> - <%= stu.age %> - <%= stu.sex %>
+      <br>
+  <% } %>
+  <hr>
+  <% if(stus && stus.length > 0){ %> 
+  <table>
+    <thead>
+      <tr>
+        <th>学号</th>
+        <th>姓名</th>
+        <th>年龄</th>
+        <th>性别</th>
+        <th>操作</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% for (const stu of stus) {%> 
+        <tr>
+          <td><%= stu.id %></td>
+          <td><%= stu.name %></td>
+          <td><%= stu.age %></td>
+          <td><%= stu.sex %></td>
+          <td>
+            <a href="/students/delete/<%= stu.id %>" onclick="return confirm('确认删除吗？')">删除</a> 
+            <a href="/students/to-update/<%= stu.id %>">修改</a>
+          </td>
+        </tr>
+      <%}%> 
+    </tbody>
+  </table>
+  <% } else {%> 
+    <p>学生列表为空</p>
+  <% } %> 
+  <hr>
+  <form action="/students/add" method="post">
+    姓名<input type="text" name="name"><br>
+    年龄<input type="number" name="age"><br>
+    性别<label for="male"><input type="radio" name="sex" value="男" id="male">男</label>
+    <label for="female"><input type="radio" name="sex" value="女" id="female">女<br></label>
+    <button>添加</button>
+  </form>
+</body>
+</html>

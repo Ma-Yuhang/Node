@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <form action="/students/update/<%= id %>" method="post">
+    姓名<input type="text" name="name" value="<%= name %> "><br>
+    年龄<input type="number" name="age" value="<%= age %>"><br>
+    性别<label for="male"><input type="radio" name="sex" value="男" <%= sex === '男' && 'checked' %>  id="male">男</label>
+    <label for="female"><input type="radio" name="sex" value="女" <%= sex === '女' && 'checked' %> id="female">女<br></label>
+    <button>修改</button>
+  </form>
+</body>
+</html>

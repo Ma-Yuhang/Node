@@ -1,0 +1,1 @@
+回调形式或promise形式读取文件{flag: "a"}追加上的appendFile追加上的
