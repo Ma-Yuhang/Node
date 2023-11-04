@@ -13,17 +13,6 @@ module.exports = function (req, res, next) {
     next()
     return
   }
-  let token = req.cookies.token
-  if (!token) {
-    token = req.headers['authorization']
-  }
-  if (!token) {
-    // 没有登录
-    res.status(403).send('没有登录')
-    console.log('认证不通过');
-    return
-  }
-  // 验证token是否正确
-  console.log('认证通过');
+  console.log(req.session,'dadad');
   next()
 }

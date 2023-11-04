@@ -4,23 +4,25 @@ const app = express()
 
 const pathRoot = path.resolve(__dirname, '../public')
 
+const session = require('express-session')
+app.use(session({
+  secret: 'mayuhang',
+  resave: false,
+  saveUninitialized: false,
+}))
 app.use(express.static(pathRoot))
 
 // 允许跨域
-app.use(require('./corsModdleware'))
+app.use(require('./corsModdleware.js'))
 // 加入cookie-parser中间件
 const cookieParser = require('cookie-parser')
 app.use(cookieParser())
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
-app.use(require('./loginModdleware'))
+app.use(require('./loginModdleware.js'))
 
 const studentRouter = express.Router()
 const adminRouter = express.Router()
-// app.post('/api/student', (req, res) => {
-//   console.log(req.body);
-//   res.send('da')
-// })
 
 // 得到所有学生
 studentRouter.get('/', (req, res) => {
@@ -48,14 +50,8 @@ studentRouter.delete('/:id', (req, res) => {
 
 // 登录
 adminRouter.post('/login', (req, res) => {
-  console.log(req.body);
-  // res.header("set-cookie", `token=${req.body.loginId}; path=/; domain=localhost; max-age=3600`)
-  res.cookie('token', req.body.loginId, {
-    path: '/',
-    domain: 'localhost',
-    maxAge: 7 * 24 * 3600 * 1000 // 一周过期
-  })
-  res.header('authorization', `Bearer ${req.body.loginId}`)
+  req.session.loginInfo = {name: 'adad'}
+  console.log(req.session);
   if (req.body.loginId === 'admin' && req.body.loginPwd == 123456) {
     res.send({
       data: '登陆成功'
