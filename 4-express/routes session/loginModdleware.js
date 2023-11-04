@@ -13,6 +13,6 @@ module.exports = function (req, res, next) {
     next()
     return
   }
-  console.log(req.session,'dadad');
+  console.log(req.session,'aaaaaa');
   next()
 }

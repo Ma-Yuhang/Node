@@ -52,7 +52,7 @@ adminRouter.post('/login', (req, res) => {
   // res.header("set-cookie", `token=${req.body.loginId}; path=/; domain=localhost; max-age=3600`)
   res.cookie('token', req.body.loginId, {
     path: '/',
-    domain: 'localhost',
+    domain: '127.0.0.1',
     maxAge: 7 * 24 * 3600 * 1000 // 一周过期
   })
   res.header('authorization', `Bearer ${req.body.loginId}`)

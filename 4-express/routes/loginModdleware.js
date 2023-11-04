@@ -19,7 +19,7 @@ module.exports = function (req, res, next) {
   }
   if (!token) {
     // 没有登录
-    res.status(403).send('没有登录')
+    res.status(403).send({msg: '没有登陆'})
     console.log('认证不通过');
     return
   }
