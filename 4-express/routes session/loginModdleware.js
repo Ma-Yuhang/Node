@@ -13,6 +13,12 @@ module.exports = function (req, res, next) {
     next()
     return
   }
-  console.log(req.session,'aaaaaa');
-  next()
+  console.log(req.session,'aaaa');
+  if(req.session.loginInfo) {
+    next()
+  }else {
+    res.status(403).send({
+      msg: '没有登陆'
+    })
+  }
 }

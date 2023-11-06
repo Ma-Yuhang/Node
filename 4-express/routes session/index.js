@@ -50,8 +50,7 @@ studentRouter.delete('/:id', (req, res) => {
 
 // 登录
 adminRouter.post('/login', (req, res) => {
-  req.session.loginInfo = {name: 'adad'}
-  console.log(req.session);
+  req.session.loginInfo = req.body
   if (req.body.loginId === 'admin' && req.body.loginPwd == 123456) {
     res.send({
       data: '登陆成功'
