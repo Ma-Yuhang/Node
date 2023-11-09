@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>文件上传</title>
+  <style>
+    .upload {
+      position: relative;
+      width: 500px;
+      height: 500px;
+    }
+    .upload::before {
+      content: '选择要上传的文件';
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 200px;
+      width: 200px;
+      border: 2px dashed red;
+      z-index: -1;
+    }
+    .upload-file:hover.upload::before{
+      border: 5px dashed dodgerblue;
+    }
+    .upload-file {
+      opacity: 0;
+      cursor: pointer;
+      width: 200px;
+      height: 200px;
+      background-color: aquamarine;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="upload">
+    <input type="file" name="imgs" multiple class="upload-file">
+    <p><button class="upload-btn">上传文件</button></p>
+  </div>
+  <script>
+    const inp = document.querySelector('.upload-file')
+    const uploadBtn = document.querySelector('.upload-btn')
+    uploadBtn.onclick = function () {
+      if(inp.files.length == 0) {
+        return
+      }
+      const formData = new FormData()
+      for (const file of inp.files) {
+        formData.append('img', file)
+      }
+      fetch('http://localhost:5500/api/upload', {
+        method: 'post',
+        body: formData
+      }).then(resp => resp.json()).then(res => {
+        // img.src = res.data
+        console.log(res);
+      })
+    }
+  </script>
+</body>
+
+</html>
