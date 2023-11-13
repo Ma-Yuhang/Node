@@ -4,44 +4,23 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>文件上传</title>
-  <style>
-    .upload {
-      position: relative;
-      width: 500px;
-      height: 500px;
-    }
-    .upload::before {
-      content: '选择要上传的文件';
-      position: absolute;
-      top: 0;
-      left: 0;
-      height: 200px;
-      width: 200px;
-      border: 2px dashed red;
-      z-index: -1;
-    }
-    .upload-file:hover.upload::before{
-      border: 5px dashed dodgerblue;
-    }
-    .upload-file {
-      opacity: 0;
-      cursor: pointer;
-      width: 200px;
-      height: 200px;
-      background-color: aquamarine;
-    }
-  </style>
+  <title>文件</title>
 </head>
 
 <body>
   <div class="upload">
     <input type="file" name="imgs" multiple class="upload-file">
     <p><button class="upload-btn">上传文件</button></p>
+    <p>
+      <img src="">
+    </p>
+    <p><a download="123.zip" href="../resources/img.zip">下载zip</a></p>
+    <p><a download="123.png" href="../resources/img.png">下载图片</a></p>
   </div>
   <script>
     const inp = document.querySelector('.upload-file')
     const uploadBtn = document.querySelector('.upload-btn')
+    const img = document.querySelector('img')
     uploadBtn.onclick = function () {
       if(inp.files.length == 0) {
         return
@@ -54,7 +33,7 @@
         method: 'post',
         body: formData
       }).then(resp => resp.json()).then(res => {
-        // img.src = res.data
+        img.src = res.data
         console.log(res);
       })
     }
