@@ -1,12 +1,14 @@
 const express = require('express')
 const app = express()
 const path = require('path')
-const uploadRouter = require('./router/upload')
+const uploadRouter = require('./routes/upload')
+const downloadRouter = require('./routes/download')
 app.use(express.static(path.resolve(__dirname, './public')))
 
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 
+// app.use(require('./moddleware/imgProtected'))
 
 app.use((req, res, next) => {
   res.header('Access-Control-Allow-Methods', '*');
@@ -15,6 +17,7 @@ app.use((req, res, next) => {
   next() 
 })
 app.use('/api/upload', uploadRouter)
+app.use('/api/download', downloadRouter)
 
 
 
