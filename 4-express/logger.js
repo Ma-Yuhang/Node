@@ -4,7 +4,6 @@ const path = require("path");
 log4js.configure({
   appenders: {
     api: {
-      //定义一个sql日志出口
       type: "dateFile",
       filename: path.resolve(__dirname, "logs", "api", "logging.log"),
       maxLogSize: 1024 * 1024, //配置文件的最大字节数
