@@ -1,5 +1,5 @@
 const allowOrigins = [
-  'http://127.0.0.1:5500'
+  'http://127.0.0.1:8080'
 ]
 
 module.exports = function (req, res, next) {
