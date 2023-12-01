@@ -1,5 +1,6 @@
 const express = require('express')
 const path = require('path')
+const svgCaptcha = require('svg-captcha')
 const app = express()
 
 const pathRoot = path.resolve(__dirname, '../public')
@@ -43,6 +44,7 @@ studentRouter.delete('/:id', (req, res) => {
 
 // 登录
 adminRouter.post('/login', (req, res) => {
+
   if (req.body.loginId === 'admin' && req.body.loginPwd == 123456) {
     res.send({
       data: '登陆成功',
@@ -52,6 +54,16 @@ adminRouter.post('/login', (req, res) => {
   else {
     res.send('账号或密码错误')
   }
+})
+app.use('/captcha', (req,res) => {
+  const captcha = svgCaptcha.createMathExpr({
+    noise: 4,
+    color: true
+  })
+  req.captcha = captcha.text
+  console.log(captcha.text);
+  res.type('svg')
+  res.send(captcha.data)
 })
 app.use('/api/student', studentRouter)
 app.use('/api', adminRouter)
