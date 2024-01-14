@@ -4,11 +4,11 @@ const downloadRouter = express.Router()
 
 
 
-downloadRouter.get('/:filename',(req, res) => {
+downloadRouter.get('/:filename', (req, res) => {
   const absPath = path.resolve(__dirname, '../resources', req.params.filename)
+  console.log(absPath, 'absPath');
   res.download(absPath, req.params.filename)
 })
-
 
 module.exports = downloadRouter
 
