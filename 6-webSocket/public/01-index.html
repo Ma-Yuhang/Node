@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <button>发送数据到服务器</button>
+  <script>
+    // 客户端
+    const ws = new WebSocket('ws://localhost:8080')
+
+    ws.onopen = function() {
+      // http握手完成
+      console.log('连接建立');
+    }
+    ws.onmessage = function(e) {
+      // 收到服务器消息
+      console.log(e.data);
+    }
+    ws.onclose = function() {
+      console.log('连接断开');
+    }
+    document.querySelector('button').onclick = function() {
+      ws.send('123') 
+    }
+    // ws.onclose() // 主动断开
+  </script>
+</body>
+</html>
